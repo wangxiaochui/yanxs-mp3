@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>本地音乐盒</title>
+  </head>
+  <style>
+
+      *{ 
+          box-sizing:border-box;
+         -moz-box-sizing:border-box; /* Firefox */
+         -webkit-box-sizing:border-box; /* Safari */
+         }
+      html, body {
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+      }
+
+      webview{
+          width: 100%;
+          height: 100%;
+      }
+      .active{background:#f4f7fa}
+
+    ul{margin:0;padding:0;list-style: none}
+    ul li{border-bottom:1px solid #e7e7e7;padding-bottom:10px;padding-top:10px;cursor:pointer}
+
+    .play{
+    width:80%;
+    height:5px;
+    background:white;
+    border-radius:5px;
+    }
+    #play{
+        height:5px;
+        background:orange;
+        border-radius:5px;
+    }
+
+    .progress{width:98%;height:3px;background:#fff;margin-top:20px}
+
+    #audioControl{position: fixed;bottom:0px;width:100%;height:60px;bottom: 0px;background:#353c46;display: flex;display: -webkit-flex; flex-wrap: wrap;padding-top:10px }
+    #crtl{width:20%;flex-direction: row;padding-left:10px}
+    #progress{width:70%;flex-direction: row;cursor:pointer}
+
+    .crtl{width:40px;height:40px}
+    #total-time{width:10%;flex-direction:row;margin-top:13px;color:#fff}
+    .is-play{height:3px;width:0;background:red}
+
+    #crtl img{cursor: pointer}
+    #kx{height:60px}
+    .kx{height:50px}
+    .yc{display: none}
+    .show{display: inline-block}
+
+    #header{width:100%;height:50px;background:#e6eaed;position:fixed;top:0}
+    #header img{width:40px;max-width:40px;margin-top:5px}
+    .inline{display:inline-block;}
+    .logo-name{position:relative;top:-12px;color:#ee7ea1;font-weight:bold}
+    .logo-img{margin-left:10px}
+
+    #main{display: flex;display: -webkit-flex; flex-wrap: wrap}
+    .main-flex{flex-direction: row}
+    .main-left{width:20%;background:#f0f4f7;height:1000px;border-right:1px solid #d7dce0;position:fixed;text-align: center}
+    .main-right{width:80%;margin-left:20%;}
+    .menu-tit{color:gray;margin-left:0}
+    .main-left ul{margin-left:20px}
+    .main-left ul li{font-size:13px}
+    #title{margin:20px}
+    .menu-tit a{text-decoration: none}
+      .header{width:100%;height:100px;background:#f0f4f7;margin:0;padding:0}
+      #list{margin-left:20px}
+    .menu-active{border-bottom:3px solid red}
+      .menu-list span{font-size:16px;color:#050000}
+  </style>
+  <body>
+ <!-- <webview class="show" src="http://play.baidu.com/?__methodName=mboxCtrl.playSong&fm=altg&__argsValue=1329239_1137385_246732955_223432_5738289#" ></webview>-->
+  <!--<div id="app">
+    <button onclick="loadFile()">加载本地文件</button>
+  </div>-->
+<div id="header">
+    <div class="inline logo-img">
+            <img src='./static/logo.png'>
+    </div>
+    <div class="inline logo-name">
+            我的音乐盒
+    </div>
+    
+</div>
+<div class="kx"></div>
+
+<div id="main">
+    <div class="main-flex main-left">
+        <div class="menu-left">
+            <p class="menu-tit">乐库</p>
+            <ul>
+                <li class="menu-list " data-flag="tj"><span class="menu-active"> 本地与下载</span></li>
+                <li class="menu-list" data-flag="ph"><span>排行榜</span></li>
+                <li class="menu-list" data-flag="jx"><span>精选集</span></li>
+            </ul>
+            <p class="menu-tit">我的音乐</p>
+            <ul>
+                <li class="menu-list" data-flag="sc"><span >收藏</span></li>
+                <li class="menu-list" data-flag="zj"><span >最近播放</span></li>
+                <li class="menu-list" data-flag="xz"><span>下载音乐</span></li>
+            </ul>
+        </div>
+      
+    </div>
+                
+    <div class="main-flex main-right">
+        <div class="header">
+        </div>
+        <div id="title">
+            <button id="btn-local">打开本地音乐</button>
+            <button id="btn-net">打开网络音乐</button>
+        </div>
+
+
+        <div id="list">
+            <ul>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="kx"></div>
+ <div id="audioControl">
+   
+    <div id="crtl">
+        <img src="./static/left.png" class="crtl-left crtl">
+        <img src="./static/play.png" class="crtl-center crtl">
+        <img src="./static/right.png" class="crtl-right crtl">
+    </div>
+   <div id="progress">
+        <div class="progress">
+            <div class="is-play"></div>
+        </div>
+       
+   </div>
+   <div id="total-time">
+       <span class="cur-time">0:00</span>/
+       <span class="total-time">0:00</span>
+        
+    </div>
+ </div>
+
+ <audio id="media" src=""></audio>
+
+  </body>
+
+  <script>
+    var $ = require('jquery');
+    var fs = require('fs');
+    var render = require('./renderer.js');
+    require('./renderer/index');
+
+  </script>
+</html>
